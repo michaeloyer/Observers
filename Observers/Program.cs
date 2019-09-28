@@ -15,9 +15,8 @@ namespace Observers
                 .ConfigureServices((host, services) =>
                 {
                     var config = host.Configuration;
-                    services.AddSingleton(config.GetSection("Observers").Get<CoreSettings>());
-                    services.AddHostedService<TimerObserver>()
-                        .AddSingleton(host.Configuration.GetSection("TimerObserver").Get<TimerObserver.Settings>());
+                    services.AddSingleton(config.GetSection("ObserverCoreSettings").Get<CoreSettings>());
+                    services.AddObservers(config.GetSection("Observers"));
                 })
                 .RunConsoleAsync();
         }
